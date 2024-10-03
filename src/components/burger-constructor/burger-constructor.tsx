@@ -19,7 +19,6 @@ export const BurgerConstructor: FC = () => {
   const { ingredients, bun, orderRequest, orderModalData } = useSelector(
     getConstructorSelector
   );
-  const constructorState = useSelector(getConstructorSelector);
   const isAuthorized = useSelector(isAuthorizedSelector);
 
   const constructorItems = {
@@ -28,22 +27,8 @@ export const BurgerConstructor: FC = () => {
     orderRequest,
     orderModalData
   };
-  // const orderRequest = constructorState.orderRequest;
-
-  // const orderModalData = constructorState.orderModalData;
 
   const onOrderClick = () => {
-    // if (constructorItems.bun && !isAuthorized) navigate('/login');
-    // if (constructorItems.bun && isAuthorized) {
-    //   dispatch(addOrderRequest(true));
-
-    //   const bunId = constructorItems.bun._id;
-    //   const ingredientsIds = constructorItems.ingredients.map(
-    //     (ingredient) => ingredient._id
-    //   );
-    //   const order = [bunId, ...ingredientsIds, bunId];
-    //   dispatch(sendOrderThunk(order));
-    // }
     if (isAuthorized) {
       const ingIDs: string[] = [];
       ingredients.forEach((ingredient) => {
