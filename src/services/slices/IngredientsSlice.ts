@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 
 export interface TIngredients {
+  ingredients: TIngredient[];
   buns: TIngredient[];
   mains: TIngredient[];
   sauces: TIngredient[];
@@ -11,6 +12,7 @@ export interface TIngredients {
 }
 
 export const initialState: TIngredients = {
+  ingredients: [],
   buns: [],
   mains: [],
   sauces: [],
@@ -28,7 +30,8 @@ const ingredientsSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    getIngredientsStateSelector: (state) => state
+    getIngredientsStateSelector: (state) => state,
+    getIngredientsSelector: (state) => state.ingredients
   },
   extraReducers: (builder) => {
     builder
@@ -40,6 +43,7 @@ const ingredientsSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         if (action.payload) {
+          state.ingredients = action.payload;
           state.buns = action.payload.filter((ing) => ing.type === 'bun');
           state.mains = action.payload.filter((ing) => ing.type === 'main');
           state.sauces = action.payload.filter((ing) => ing.type === 'sauce');
@@ -52,5 +56,6 @@ const ingredientsSlice = createSlice({
   }
 });
 
-export const { getIngredientsStateSelector } = ingredientsSlice.selectors;
+export const { getIngredientsStateSelector, getIngredientsSelector } =
+  ingredientsSlice.selectors;
 export default ingredientsSlice.reducer;
