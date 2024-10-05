@@ -4,18 +4,12 @@ import { TIngredient } from '@utils-types';
 
 export interface TIngredients {
   ingredients: TIngredient[];
-  buns: TIngredient[];
-  mains: TIngredient[];
-  sauces: TIngredient[];
   isLoading: boolean;
   error?: string | null;
 }
 
 export const initialState: TIngredients = {
   ingredients: [],
-  buns: [],
-  mains: [],
-  sauces: [],
   isLoading: false,
   error: null
 };
@@ -30,7 +24,6 @@ const ingredientsSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    getIngredientsStateSelector: (state) => state,
     getIngredientsSelector: (state) => state.ingredients
   },
   extraReducers: (builder) => {
@@ -44,9 +37,6 @@ const ingredientsSlice = createSlice({
         state.error = null;
         if (action.payload) {
           state.ingredients = action.payload;
-          state.buns = action.payload.filter((ing) => ing.type === 'bun');
-          state.mains = action.payload.filter((ing) => ing.type === 'main');
-          state.sauces = action.payload.filter((ing) => ing.type === 'sauce');
         }
       })
       .addCase(getIngredientsThunk.rejected, (state, { error }) => {
@@ -56,6 +46,5 @@ const ingredientsSlice = createSlice({
   }
 });
 
-export const { getIngredientsStateSelector, getIngredientsSelector } =
-  ingredientsSlice.selectors;
+export const { getIngredientsSelector } = ingredientsSlice.selectors;
 export default ingredientsSlice.reducer;

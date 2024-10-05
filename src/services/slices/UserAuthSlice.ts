@@ -12,6 +12,9 @@ import {
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../utils/cookie';
+import { useDispatch } from '../store';
+
+const dispatch = useDispatch();
 
 export interface TUserAuthState {
   user: TUser | null;
@@ -37,7 +40,15 @@ export const registerUserThunk = createAsyncThunk(
   (registerData: TRegisterData) => registerUserApi(registerData)
 );
 
-export const logoutUserThunk = createAsyncThunk('user/logout', logoutApi);
+export const logoutUserThunk = createAsyncThunk(
+  'user/logout',
+  (_, { dispatch }) =>
+    logoutApi().then(() => {
+      localStorage.clear();
+      deleteCookie('accessToken');
+      dispatch(clearUserError());
+    })
+);
 
 export const updateUserThunk = createAsyncThunk(
   'user/update',
