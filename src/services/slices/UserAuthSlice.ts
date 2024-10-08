@@ -12,9 +12,6 @@ import {
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../utils/cookie';
-import { useDispatch } from '../store';
-
-const dispatch = useDispatch();
 
 export interface TUserAuthState {
   user: TUser | null;
@@ -71,6 +68,9 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    checkUser: (state) => {
+      state.isAuthorized = true;
+    },
     clearUserError: (state) => {
       state.error = null;
     }
@@ -89,7 +89,6 @@ const userSlice = createSlice({
       })
       .addCase(loginUserThunk.fulfilled, (state, { payload }) => {
         state.user = payload.user;
-        state.isAuthorized = true;
         state.isLoading = false;
         state.error = null;
         setCookie('accessToken', payload.accessToken);
@@ -105,7 +104,6 @@ const userSlice = createSlice({
       })
       .addCase(registerUserThunk.fulfilled, (state, { payload }) => {
         state.user = payload.user;
-        state.isAuthorized = true;
         state.isLoading = false;
         state.error = null;
         setCookie('accessToken', payload.accessToken);
@@ -123,7 +121,6 @@ const userSlice = createSlice({
         state.user = null;
         state.isLoading = false;
         state.error = null;
-        state.isAuthorized = false;
         deleteCookie('accessToken');
         localStorage.removeItem('refreshToken');
       })
@@ -137,7 +134,6 @@ const userSlice = createSlice({
       })
       .addCase(updateUserThunk.fulfilled, (state, { payload }) => {
         state.user = payload.user;
-        state.isAuthorized = true;
         state.isLoading = false;
         state.error = null;
       })
@@ -175,7 +171,6 @@ const userSlice = createSlice({
       })
       .addCase(getUserThunk.fulfilled, (state, { payload }) => {
         state.user = payload.user;
-        state.isAuthorized = true;
         state.isLoading = false;
         state.error = null;
       })
@@ -186,7 +181,7 @@ const userSlice = createSlice({
   }
 });
 
-export const { clearUserError } = userSlice.actions;
+export const { clearUserError, checkUser } = userSlice.actions;
 export const {
   getUserStateSelector,
   getUserSelector,

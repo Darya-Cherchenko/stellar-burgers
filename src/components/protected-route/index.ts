@@ -1,1 +1,5 @@
-export { ProtectedRoute, UserAuthorized } from './protected-route';
+export {
+  ProtectedRoute,
+  UserUnAuthorized,
+  UserAuthorized
+} from './protected-route';

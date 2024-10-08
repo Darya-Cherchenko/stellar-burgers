@@ -21,9 +21,11 @@ import {
   IngredientDetails,
   Modal,
   OrderInfo,
+  UserUnAuthorized,
   UserAuthorized
 } from '@components';
 import {
+  checkUser,
   getUserStateSelector,
   getUserThunk
 } from '../../services/slices/UserAuthSlice';
@@ -36,7 +38,10 @@ const App = () => {
   const backgroundLocation = location.state?.background;
 
   useEffect(() => {
-    dispatch(getUserThunk());
+    dispatch(getUserThunk())
+      .unwrap()
+      .catch(() => {})
+      .finally(() => dispatch(checkUser()));
     dispatch(getIngredientsThunk());
   }, [dispatch]);
 
@@ -49,19 +54,19 @@ const App = () => {
         <Route path='/feed' element={<Feed />} />
         <Route
           path='/login'
-          element={<UserAuthorized component={<Login />} />}
+          element={<UserUnAuthorized component={<Login />} />}
         />
         <Route
           path='/register'
-          element={<UserAuthorized component={<Register />} />}
+          element={<UserUnAuthorized component={<Register />} />}
         />
         <Route
           path='/forgot-password'
-          element={<UserAuthorized component={<ForgotPassword />} />}
+          element={<UserUnAuthorized component={<ForgotPassword />} />}
         />
         <Route
           path='/reset-password'
-          element={<UserAuthorized component={<ResetPassword />} />}
+          element={<UserUnAuthorized component={<ResetPassword />} />}
         />
         <Route
           path='/profile'

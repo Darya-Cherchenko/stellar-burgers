@@ -13,11 +13,11 @@ export const BurgerIngredients: FC = () => {
     [ingredients]
   );
   const mains = useMemo(
-    () => ingredients.filter((ing) => ing.type === 'mains'),
+    () => ingredients.filter((ing) => ing.type === 'main'),
     [ingredients]
   );
   const sauces = useMemo(
-    () => ingredients.filter((ing) => ing.type === 'sauces'),
+    () => ingredients.filter((ing) => ing.type === 'sauce'),
     [ingredients]
   );
 
