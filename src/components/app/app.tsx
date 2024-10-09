@@ -32,10 +32,6 @@ import {
 
 const App = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const userLoading = useSelector(getUserStateSelector).isLoading;
-  const backgroundLocation = location.state?.background;
 
   useEffect(() => {
     dispatch(getUserThunk())
