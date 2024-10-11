@@ -11,7 +11,7 @@ import {
 } from '@api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { deleteCookie, setCookie } from '../../utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 
 export interface TUserAuthState {
   user: TUser | null;
@@ -117,7 +117,7 @@ const userSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(logoutUserThunk.fulfilled, (state, { payload }) => {
+      .addCase(logoutUserThunk.fulfilled, (state) => {
         state.user = null;
         state.isLoading = false;
         state.error = null;

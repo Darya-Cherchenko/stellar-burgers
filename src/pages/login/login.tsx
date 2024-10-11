@@ -9,7 +9,6 @@ import {
 
 export const Login: FC = () => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const error = useSelector((state) => state.user.error);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

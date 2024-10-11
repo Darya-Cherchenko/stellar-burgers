@@ -37,8 +37,4 @@ export const UserUnAuthorized = ({
   component: React.JSX.Element;
 }): React.JSX.Element => <ProtectedRoute onlyUnAuth component={component} />;
 
-export const UserAuthorized = ({
-  component
-}: {
-  component: React.JSX.Element;
-}): React.JSX.Element => <ProtectedRoute component={component} />;
+export const UserAuthorized = ProtectedRoute;

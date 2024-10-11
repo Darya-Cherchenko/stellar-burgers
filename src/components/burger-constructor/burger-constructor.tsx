@@ -3,10 +3,10 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import {
   getConstructorSelector,
-  sendOrderThunk,
   addOrderRequest,
   addNullOrderModalData,
-  addModalData
+  addModalData,
+  clearConstructor
 } from '../../services/slices/ConstructorSlice';
 import { useSelector, useDispatch } from '../../services/store';
 import { isAuthorizedSelector } from '../../services/slices/UserAuthSlice';
@@ -62,6 +62,8 @@ export const BurgerConstructor: FC = () => {
   const closeOrderModal = () => {
     dispatch(addOrderRequest(false));
     dispatch(addNullOrderModalData());
+    dispatch(clearConstructor());
+    navigate('/');
   };
 
   const price = useMemo(
