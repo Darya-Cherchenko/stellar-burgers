@@ -46,7 +46,6 @@ const App = () => {
     <div className={styles.app}>
       <AppHeader />
       <Routes location={bgLocation || location}>
-        <Route path='*' element={<NotFound404 />} />
         <Route path='/' element={<ConstructorPage />} />
         <Route
           path='/login'
@@ -72,6 +71,13 @@ const App = () => {
         <Route
           path='/profile/orders'
           element={<UserAuthorized component={<ProfileOrders />} />}
+        />
+        <Route path='*' element={<NotFound404 />} />
+        <Route path='/feed/:number' element={<OrderInfo />} />
+        <Route path='/ingredients/:id' element={<IngredientDetails />} />
+        <Route
+          path='/profile/orders/:number'
+          element={<UserAuthorized component={<OrderInfo />} />}
         />
       </Routes>
       {bgLocation && (

@@ -9,7 +9,7 @@ import {
   clearConstructor
 } from '../../services/slices/ConstructorSlice';
 import { useSelector, useDispatch } from '../../services/store';
-import { isAuthorizedSelector } from '../../services/slices/UserAuthSlice';
+import { getUserSelector } from '../../services/slices/UserAuthSlice';
 import { useNavigate } from 'react-router-dom';
 import { orderBurgerApi, refreshToken } from '@api';
 
@@ -19,7 +19,7 @@ export const BurgerConstructor: FC = () => {
   const { ingredients, bun, orderRequest, orderModalData } = useSelector(
     getConstructorSelector
   );
-  const isAuthorized = useSelector(isAuthorizedSelector);
+  const user = useSelector(getUserSelector);
 
   const constructorItems = {
     bun,
@@ -29,7 +29,7 @@ export const BurgerConstructor: FC = () => {
   };
 
   const onOrderClick = () => {
-    if (isAuthorized) {
+    if (user) {
       const ingIDs: string[] = [];
       ingredients.forEach((ingredient) => {
         ingIDs.push(ingredient._id);
