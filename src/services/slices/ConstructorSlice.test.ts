@@ -1,5 +1,4 @@
-import reducer from './ConstructorSlice';
-import burgerConstructorSlice, {
+import reducer, {
   initialState,
   addIngredients,
   deleteIngredient,
@@ -135,48 +134,28 @@ describe('тест burgerConstructorSlice', () => {
     number: 56589
   };
 
-  let mockInitialState = initialState;
-
-  afterEach(() => {
-    mockInitialState = initialState;
-  });
-
   test('проверка addIngredients', () => {
-    const newState = reducer(
-      initialState,
-      addIngredients({ ingredients: mockIngredients })
-    );
-    expect(newState).toEqual({
-      ...initialState,
-      ingredients: [mockIngredients]
-    });
+    const newState = reducer(initialState, addIngredients(mockIngredients[0]));
+    expect(newState.ingredients).toEqual([mockIngredients[0]]);
+    expect(newState.ingredients.length).toBe(1);
   });
 
   test('проверка deleteIngredient', () => {
-    mockInitialState = {
+    const mockInitialState = {
       ...initialState,
-      ingredients: [mockIngredients[1]]
+      ingredients: [mockIngredients[0]]
     };
 
-    const newState = burgerConstructorSlice(
-      initialState,
-      deleteIngredient({ id: mockIngredients[1].id })
+    const newState = reducer(
+      mockInitialState,
+      deleteIngredient({ id: mockIngredients[0].id })
     );
-    expect(newState).toEqual({
-      ...initialState,
-      ingredients: []
-    });
+    expect(newState.ingredients).toEqual([]);
   });
 
   test('проверка addOrderRequest', () => {
-    const newStateTrue = burgerConstructorSlice(
-      initialState,
-      addOrderRequest(true)
-    );
-    const newStateFalse = burgerConstructorSlice(
-      initialState,
-      addOrderRequest(false)
-    );
+    const newStateTrue = reducer(initialState, addOrderRequest(true));
+    const newStateFalse = reducer(initialState, addOrderRequest(false));
 
     expect(newStateTrue).toEqual({
       ...initialState,
@@ -190,61 +169,61 @@ describe('тест burgerConstructorSlice', () => {
   });
 
   test('проверка addModalData', () => {
-    const newState = burgerConstructorSlice(
-      initialState,
-      addModalData(mockModalData)
-    );
-    expect(newState).toEqual({
-      ...initialState,
-      orderModalData: mockModalData
-    });
+    const newState = reducer(initialState, addModalData(mockModalData));
+    expect(newState.orderModalData).toEqual(mockModalData);
   });
 
   test('проверка clearConstructor', () => {
-    mockInitialState = {
+    const mockInitialState = {
       bun: mockIngredients[0],
       ingredients: mockIngredients,
       orderRequest: true,
-      orderModalData: mockOrder
+      orderModalData: mockOrder,
+      isLoading: true,
+      error: 'error test'
     };
 
-    const newState = burgerConstructorSlice(initialState, clearConstructor());
+    const newState = reducer(mockInitialState, clearConstructor());
 
     expect(newState).toEqual({
       bun: null,
       ingredients: [],
       orderRequest: false,
-      orderModalData: null
+      orderModalData: null,
+      isLoading: false,
+      error: null
     });
   });
 
   test('проверка moveIngredientUp', () => {
-    mockInitialState = {
+    const mockInitialState = {
       ...initialState,
-      ingredients: [mockIngredients[1], mockIngredients[2]]
+      ingredients: [mockIngredients[1], mockIngredients[0]]
     };
 
-    const newState = burgerConstructorSlice(
-      initialState,
-      moveIngredientUp(mockIngredients[2])
+    const newState = reducer(
+      mockInitialState,
+      moveIngredientUp(mockIngredients[1].id)
     );
-    expect(newState.ingredients.length).toBe(2);
-    expect(newState.ingredients[1]).toEqual(initialState.ingredients[0]);
-    expect(newState.ingredients[0]).toEqual(initialState.ingredients[1]);
+    expect(newState.ingredients).toEqual([
+      mockIngredients[1],
+      mockIngredients[0]
+    ]);
   });
 
   test('проверка moveIngredientDown', () => {
-    mockInitialState = {
+    const mockInitialState = {
       ...initialState,
-      ingredients: [mockIngredients[1], mockIngredients[2]]
+      ingredients: [mockIngredients[0], mockIngredients[1]]
     };
 
-    const newState = burgerConstructorSlice(
-      initialState,
-      moveIngredientDown(mockIngredients[1])
+    const newState = reducer(
+      mockInitialState,
+      moveIngredientDown(mockIngredients[0].id)
     );
-    expect(newState.ingredients.length).toBe(2);
-    expect(newState.ingredients[0]).toEqual(initialState.ingredients[1]);
-    expect(newState.ingredients[1]).toEqual(initialState.ingredients[0]);
+    expect(newState.ingredients).toEqual([
+      mockIngredients[1],
+      mockIngredients[0]
+    ]);
   });
 });

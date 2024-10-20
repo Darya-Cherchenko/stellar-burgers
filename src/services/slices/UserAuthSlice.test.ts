@@ -17,9 +17,7 @@ const setupStore = () =>
     }
   });
 
-describe('Тесты авторизции пользовтеля', () => {
-  const mockSet = jest.fn();
-
+describe('Тесты авторизации пользовтеля', () => {
   describe('Тесты запроса логина', () => {
     test('Тест ожидания ответа после запроса логина', () => {
       const store = setupStore();

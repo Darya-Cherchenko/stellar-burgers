@@ -50,7 +50,7 @@ describe('тест getIngredientsThunk', () => {
     const newState = ingredientsSlice(mockInitialState, action);
     expect(newState).toEqual({
       ...mockInitialState,
-      loading: true
+      isLoading: true
     });
   });
 

@@ -191,7 +191,16 @@ const config: Config = {
 
   // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
   // watchPathIgnorePatterns: [],
-
+  moduleNameMapper: {
+    '^@pages': '<rootDir>/src/pages',
+    '^@components': '<rootDir>/src/components',
+    '^@ui': '<rootDir>/src/components/ui',
+    '^@ui-pages': '<rootDir>/src/components/ui/pages',
+    '^@utils-types': '<rootDir>/src/utils/types',
+    '^@api': '<rootDir>/src/utils/burger-api.ts',
+    '^@slices': '<rootDir>/src/services/slices',
+    '^@selectors': '<rootDir>/src/services/selectors'
+  },
   // Whether to use watchman for file crawling
   // watchman: true,
   preset: 'ts-jest'
