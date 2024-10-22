@@ -13,7 +13,7 @@ const config: Config = {
   // bail: 0,
 
   // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "C:\\Users\\HP\\AppData\\Local\\Temp\\jest",
+  // cacheDirectory: "C:\\Users\\ASUS\\AppData\\Local\\Temp\\jest",
 
   // Automatically clear mock calls, instances, contexts and results before every test
   // clearMocks: false,
@@ -185,7 +185,7 @@ const config: Config = {
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
-
+  moduleDirectories: ['node_modules', 'src'],
   // Indicates whether each individual test should be reported during the run
   // verbose: undefined,
 
@@ -199,11 +199,15 @@ const config: Config = {
     '^@utils-types': '<rootDir>/src/utils/types',
     '^@api': '<rootDir>/src/utils/burger-api.ts',
     '^@slices': '<rootDir>/src/services/slices',
+    '@hooks': '<rootDir>/src/hooks',
+    '@store': '<rootDir>/src/services/store.ts',
     '^@selectors': '<rootDir>/src/services/selectors'
   },
   // Whether to use watchman for file crawling
   // watchman: true,
-  preset: 'ts-jest'
+  preset: 'ts-jest',
+  rootDir: './',
+  testEnvironment: 'jsdom'
 };
 
 export default config;
