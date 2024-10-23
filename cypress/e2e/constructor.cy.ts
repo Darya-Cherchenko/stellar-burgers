@@ -1,7 +1,6 @@
 import { URL } from '@api';
 import { deleteCookie, setCookie } from '../../src/utils/cookie';
 
-
 describe('Тест конструктора бургеров', () => {
   beforeEach(() => {
     setCookie(
@@ -12,12 +11,12 @@ describe('Тест конструктора бургеров', () => {
       'refreshToken',
       'b81e17825a3f41fa458782c4eff3198c536689154380040d006fab3519188c8be69761e7c2a6625e'
     );
-    cy.intercept('GET', `${URL}//auth/user`, { fixture: 'user.json' }).as(
+    cy.intercept('GET', `${URL}/auth/user`, { fixture: 'user.json' }).as(
       'getUser'
     );
-    cy.intercept('GET', `${URL}/ingredients`, {
-      fixture: 'ingredients.json'
-    }).as('getIngredients');
+    cy.intercept('GET', `${URL}/login`, { fixture: 'user.json' }).as(
+      'getUserLogin'
+    );
     cy.visit('/');
   });
   afterEach(() => {
