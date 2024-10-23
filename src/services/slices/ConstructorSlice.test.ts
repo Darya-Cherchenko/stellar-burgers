@@ -6,12 +6,16 @@ import reducer, {
   addModalData,
   clearConstructor,
   moveIngredientDown,
-  moveIngredientUp
+  moveIngredientUp,
+  TBurgerConstructor
 } from './ConstructorSlice';
 
 import { describe, test, expect } from '@jest/globals';
 
 describe('тест burgerConstructorSlice', () => {
+  const startState: TBurgerConstructor = JSON.parse(
+    JSON.stringify(initialState)
+  );
   const mockIngredients = [
     {
       id: '0',
@@ -196,34 +200,34 @@ describe('тест burgerConstructorSlice', () => {
   });
 
   test('проверка moveIngredientUp', () => {
-    const mockInitialState = {
-      ...initialState,
-      ingredients: [mockIngredients[1], mockIngredients[0]]
-    };
+    const ingredientId = 1;
+    const endState: TBurgerConstructor = JSON.parse(JSON.stringify(startState));
+    [
+      endState.ingredients[ingredientId],
+      endState.ingredients[ingredientId - 1]
+    ] = [
+      endState.ingredients[ingredientId - 1],
+      endState.ingredients[ingredientId]
+    ];
 
-    const newState = reducer(
-      mockInitialState,
-      moveIngredientUp(mockIngredients[1].id)
-    );
-    expect(newState.ingredients).toEqual([
-      mockIngredients[1],
-      mockIngredients[0]
-    ]);
+    const newState = reducer(startState, moveIngredientUp(ingredientId));
+
+    expect(newState).toEqual(endState);
   });
 
   test('проверка moveIngredientDown', () => {
-    const mockInitialState = {
-      ...initialState,
-      ingredients: [mockIngredients[0], mockIngredients[1]]
-    };
+    const ingredientId = 0;
+    const endState: TBurgerConstructor = JSON.parse(JSON.stringify(startState));
+    [
+      endState.ingredients[ingredientId],
+      endState.ingredients[ingredientId + 1]
+    ] = [
+      endState.ingredients[ingredientId + 1],
+      endState.ingredients[ingredientId]
+    ];
 
-    const newState = reducer(
-      mockInitialState,
-      moveIngredientDown(mockIngredients[0].id)
-    );
-    expect(newState.ingredients).toEqual([
-      mockIngredients[1],
-      mockIngredients[0]
-    ]);
+    const newState = reducer(startState, moveIngredientDown(ingredientId));
+
+    expect(newState).toEqual(endState);
   });
 });
