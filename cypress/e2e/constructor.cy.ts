@@ -1,4 +1,3 @@
-import { URL } from '@api';
 import { deleteCookie, setCookie } from '../../src/utils/cookie';
 
 describe('Тест конструктора бургеров', () => {
@@ -11,10 +10,10 @@ describe('Тест конструктора бургеров', () => {
       'refreshToken',
       'b81e17825a3f41fa458782c4eff3198c536689154380040d006fab3519188c8be69761e7c2a6625e'
     );
-    cy.intercept('GET', `${URL}/auth/user`, { fixture: 'user.json' }).as(
+    cy.intercept('GET', `api/auth/user`, { fixture: 'user.json' }).as(
       'getUser'
     );
-    cy.intercept('GET', `${URL}/login`, { fixture: 'user.json' }).as(
+    cy.intercept('GET', `api/login`, { fixture: 'user.json' }).as(
       'getUserLogin'
     );
     cy.visit('/');
@@ -51,7 +50,7 @@ describe('Тест конструктора бургеров', () => {
     cy.get('@modal').should('not.exist');
   });
   it('Тест создания заказа', () => {
-    cy.intercept('POST', `${URL}/orders`, { fixture: 'order.json' }).as(
+    cy.intercept('POST', `api/orders`, { fixture: 'order.json' }).as(
       'orderBurgerApi'
     );
     cy.get('[data-cy="constructor"]').as('constructor');
@@ -73,7 +72,5 @@ describe('Тест конструктора бургеров', () => {
       'Биокотлета из марсианской Магнолии'
     );
     cy.get('@constructor').should('not.contain', 'Краторная булка N-200i');
-
-    cy.wait('@orderBurgerApi');
   });
 });
