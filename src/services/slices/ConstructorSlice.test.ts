@@ -139,8 +139,11 @@ describe('тест burgerConstructorSlice', () => {
   };
 
   test('проверка addIngredients', () => {
-    const newState = reducer(initialState, addIngredients(mockIngredients[0]));
-    expect(newState.ingredients).toEqual([mockIngredients[0]]);
+    const newState = reducer(initialState, addIngredients(mockIngredients[1]));
+    expect(newState.ingredients[0]).toEqual({
+      ...mockIngredients[1],
+      id: expect.any(String)
+    });
     expect(newState.ingredients.length).toBe(1);
   });
 
@@ -179,12 +182,9 @@ describe('тест burgerConstructorSlice', () => {
 
   test('проверка clearConstructor', () => {
     const mockInitialState = {
+      ...initialState,
       bun: mockIngredients[0],
-      ingredients: mockIngredients,
-      orderRequest: true,
-      orderModalData: mockOrder,
-      isLoading: true,
-      error: 'error test'
+      ingredients: mockIngredients
     };
 
     const newState = reducer(mockInitialState, clearConstructor());

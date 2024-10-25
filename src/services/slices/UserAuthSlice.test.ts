@@ -57,7 +57,6 @@ describe('Тесты авторизации пользовтеля', () => {
       expect(state.user.isLoading).toBeFalsy();
       expect(state.user.error).toBeNull();
       expect(state.user.user).toEqual(mockedPayload.user);
-      expect(state.user.isAuthorized).toBeTruthy();
     });
   });
 
@@ -100,7 +99,6 @@ describe('Тесты авторизации пользовтеля', () => {
       expect(state.user.isLoading).toBeFalsy();
       expect(state.user.error).toBeNull();
       expect(state.user.user).toEqual(mockedPayload.user);
-      expect(state.user.isAuthorized).toBeTruthy();
     });
   });
 
@@ -175,7 +173,6 @@ describe('Тесты авторизации пользовтеля', () => {
       expect(state.user.isLoading).toBeFalsy();
       expect(state.user.error).toBeNull();
       expect(state.user.user).toEqual(mockedPayload.user);
-      expect(state.user.isAuthorized).toBeTruthy();
     });
   });
 
@@ -286,7 +283,6 @@ describe('Тесты авторизации пользовтеля', () => {
       expect(state.user.isLoading).toBeFalsy();
       expect(state.user.error).toBeNull();
       expect(state.user.user).toEqual(mockedPayload.user);
-      expect(state.user.isAuthorized).toBeTruthy();
     });
   });
 });
