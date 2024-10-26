@@ -11,7 +11,7 @@ import {
 import { useSelector, useDispatch } from '../../services/store';
 import { getUserSelector } from '../../services/slices/UserAuthSlice';
 import { useNavigate } from 'react-router-dom';
-import { orderBurgerApi, refreshToken } from '@api';
+import { orderBurgerApi } from '@api';
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
@@ -41,16 +41,10 @@ export const BurgerConstructor: FC = () => {
       }
 
       dispatch(addOrderRequest(true));
-      refreshToken()
-        .then(() => {
-          orderBurgerApi(ingIDs)
-            .then((data) => {
-              dispatch(addModalData(data.order));
-              dispatch(addOrderRequest(false));
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+      orderBurgerApi(ingIDs)
+        .then((data) => {
+          dispatch(addModalData(data.order));
+          dispatch(addOrderRequest(false));
         })
         .catch((error) => {
           console.log(error);
